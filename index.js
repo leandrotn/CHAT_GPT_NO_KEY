@@ -13,8 +13,11 @@ client.on('messageCreate', async (message) => {
 
     try {
         const response = await axios.get(apiUrl + encodeURIComponent(question));
-
-        message.reply(`${message.author}, ${response.data.answer}`);
+        if (response.data.answer === undefined) {
+            message.reply('Infelizmente eu não consigo te responder essa, sou inteligente mas nem tanto quanto o leandrotn -_-');
+        } else {
+            message.reply(`${message.author}, ${response.data.answer}`);
+        }
     } catch (error) {
         console.error('Erro ao fazer a requisição à API:', error);
         message.reply('Desculpe, ocorreu um erro ao processar sua pergunta.');
